@@ -12,7 +12,7 @@ class Curso:
 #metodo que permita la creación de los cursos
     def crear_curso(self):  
         return f"Curso '{self.nombre}' creado con éxito. Descripción: {self.descripcion}, Duración: {self.duracion} horas, Valor: ${self.valor}, Modalidad: {self.modalidad}"
-#metodo que permita la actualización de los cursos
+
     def actualizar_curso(self, nombre=None, descripcion=None, duracion=None, valor=None, modalidad=None):
         if nombre:
             self.nombre = nombre

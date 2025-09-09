@@ -4,7 +4,6 @@ class DobleFormato:
         self.nombre_archivo = nombre_archivo
         if not (self.nombre_archivo.endswith('.pdf') or self.nombre_archivo.endswith('.docx')):
             raise ValueError("El archivo debe estar en formato .pdf o .docx")
-#metodo que permita la seleccion de formato
     def seleccionar_formato(self):
         if self.nombre_archivo.endswith('.pdf'):
             return f"El archivo '{self.nombre_archivo}' es un documento PDF."
