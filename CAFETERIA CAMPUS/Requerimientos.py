@@ -51,7 +51,7 @@ def facturar(orden, tiene_carne):
     total = CalcularTotal(orden)
     total_final = aplicar_descuento(total, tiene_carne)
     print("\n--- Factura ---")
-    for producto, cantidad in orden.productos():
+    for producto, cantidad in orden.items():
         print(f"{producto} x {cantidad} = ${PRODUCTOS[producto] * cantidad}")
     if tiene_carne:
         print("Descuento aplicado: 10%")
@@ -61,7 +61,7 @@ def facturar(orden, tiene_carne):
 def guardar_pedido(orden):
     try:
         with open("pedido.txt", "w") as f:
-            for producto, cantidad in orden.productos():
+            for producto, cantidad in orden.items():
                 f.write(f"{producto}: {cantidad}\n")
         print("Pedido guardado exitosamente.")
     except:
