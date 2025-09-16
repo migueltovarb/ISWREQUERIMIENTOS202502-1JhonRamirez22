@@ -25,7 +25,7 @@ RF12: Redimir códigos de cupón
 
 REQUERIMIENTOS NO FUNCIONALES:
 
- RNF1: El sistema debe responder en menos de 1 segundo
+RNF1: El sistema debe responder en menos de 1 segundo
 
 RNF2: El sistema debe funcionar en Windows y Linux
 
