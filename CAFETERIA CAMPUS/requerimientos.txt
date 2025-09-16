@@ -33,3 +33,115 @@ RNF3: Los Datos no deben perderse al cierre accidental
 
 RNF4: La Interfaz Debe ser clara para personal nuevo.
 
+
+
+LEVANTAMIENTO DE REQUERIMIENTOS:
+
+1. Requisitos Funcionales (RF)
+
+RF1 – Registro de pedidos
+
+El sistema debe permitir iniciar un nuevo pedido.
+
+Cada pedido recibe un identificador único automático.
+
+RF2 – Visualización de menú de productos
+
+Mostrar la lista completa de productos disponibles con su nombre y categoría.
+
+Permitir búsqueda por nombre o filtro por categoría.
+
+RF3 – Visualización de precios
+
+Mostrar el precio unitario de cada producto en el menú.
+
+Actualizar precios en tiempo real si cambian en la fuente de datos.
+
+RF4 – Agregar ítems al pedido
+
+Seleccionar uno o más productos y especificar cantidad.
+
+Validar que la cantidad solicitada no exceda el inventario disponible.
+
+RF5 – Eliminar ítems del pedido
+
+Remover cualquier ítem previamente agregado antes de cerrar el pedido.
+
+Actualizar subtotal automáticamente al eliminar un producto.
+
+RF6 – Cálculo automático de total
+
+Calcular subtotal = Σ(cantidad × precio unitario) de todos los ítems.
+
+Mostrar en pantalla subtotal, descuento aplicado y total final.
+
+RF7 – Descuento por carné válido
+
+Detectar si el cliente ingresa un número de carné válido.
+
+Aplicar 10% de descuento sobre el subtotal antes de impuestos.
+
+Registrar el tipo de descuento en la factura.
+
+RF8 – Emisión de factura
+
+Generar un resumen con:
+
+Detalle de cada producto (nombre, cantidad, precio unitario).
+
+Subtotal, descuentos, impuesto (si aplica) y total a pagar.
+
+Permitir impresión o exportación a PDF.
+
+RF9 – Límite de cuatro pasos por compra
+
+Definir flujo de compra máximo en cuatro pantallas:
+
+Selección de productos
+
+Visualización de carrito y ajustes
+
+Aplicación de descuentos/cupón
+
+Resumen y facturación
+
+RF10 – Almacenamiento local de registros
+
+Guardar cada factura y detalle de pedido en un archivo local (formato JSON o CSV).
+
+Asegurar persistencia de datos en disco ante cierre inesperado.
+
+RF11 – Gestión de combos
+
+Definir combos como agrupaciones de productos con precio especial.
+
+Permitir selección de combos y desglosar sus ítems en el detalle de la factura.
+
+RF12 – Redención de códigos de cupón
+
+Validar cupones existentes según fecha de expiración y cantidad de usos.
+
+Aplicar descuento fijo o porcentaje definido por el cupón.
+
+Registrar cupones utilizados en el historial de pedidos.
+
+2. Requisitos No Funcionales (RNF)
+RNF1 – Rendimiento
+
+Tiempo de respuesta máximo de 1 segundo en operaciones CRUD de productos y cálculos de total.
+
+RNF2 – Portabilidad
+
+El sistema debe correr nativamente en Windows (10 o superior) y distribuciones Linux populares (Ubuntu 20.04+).
+
+RNF3 – Tolerancia a fallos
+
+Implementar mecanismo de guardado automático cada acción significativa para evitar pérdida de datos.
+
+Recuperación automática del último estado tras reinicio inesperado.
+
+RNF4 – Usabilidad
+
+Interfaz gráfica intuitiva y consistente, con etiquetas claras y accesibilidad básica (contraste, tamaño de fuente).
+
+Documentación mínima “quick start” integrada para usuarios nuevos.
