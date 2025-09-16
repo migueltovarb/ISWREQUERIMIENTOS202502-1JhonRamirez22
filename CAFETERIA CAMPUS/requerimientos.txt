@@ -11,7 +11,7 @@ RF5: Quitar Ítems del pedido
 
 RF6: Calcular Total Precio de los Productos Seleccionados
 
-RF7: Aplicar descuento al tener carné valido
+RF7: Aplicar descuento  de 10% al tener carné valido
 
 RF8: Facturar (resumen de la compra + precio)
 
