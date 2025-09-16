@@ -11,8 +11,8 @@ def MostrarMenu():
     if not PRODUCTOS:
         print("No hay productos en el menú. Agregue algunos primero.")
     else:
-        for item, price in PRODUCTOS.items():
-            print(f"{item}: ${price}")
+        for producto, precio in PRODUCTOS.items():
+            print(f"{producto}: ${precio}")
 
 
 def AgregarProducto(orden, producto, cantidad):
@@ -51,7 +51,7 @@ def facturar(orden, tiene_carne):
     total = CalcularTotal(orden)
     total_final = aplicar_descuento(total, tiene_carne)
     print("\n--- Factura ---")
-    for producto, cantidad in orden.items():
+    for producto, cantidad in orden.productos():
         print(f"{producto} x {cantidad} = ${PRODUCTOS[producto] * cantidad}")
     if tiene_carne:
         print("Descuento aplicado: 10%")
@@ -61,7 +61,7 @@ def facturar(orden, tiene_carne):
 def guardar_pedido(orden):
     try:
         with open("pedido.txt", "w") as f:
-            for producto, cantidad in orden.items():
+            for producto, cantidad in orden.productos():
                 f.write(f"{producto}: {cantidad}\n")
         print("Pedido guardado exitosamente.")
     except:
