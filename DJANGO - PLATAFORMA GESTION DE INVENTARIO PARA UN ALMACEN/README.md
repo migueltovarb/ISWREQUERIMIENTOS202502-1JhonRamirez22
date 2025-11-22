@@ -89,29 +89,29 @@ python manage.py runserver
 
 ## HISTORIAS DE USUARIOS USADAS EN LA APLICACION DJANGO
 
-### HU1: Recibir Alertas Automáticas
+### HU012: Sistema de notificaciones y alertas
 - Alertas cuando stock < stock_mínimo
 - Tres niveles: Crítica (Rojo), Alta (Naranja), Media (Amarillo)
 - Interfaz de alertas con filtros
 
-### HU2: Modificar Información de Productos
+### HU002: Modificar Información de Productos
 - Formulario CRUD con validaciones
 - Historial de cambios automático
 
-### HU3: Asociar Código de Barras
+### HU004: Asociar Código de Barras
 - Generación automática EAN13
 - Generador manual
 - Visualización e impresión
 
-### HU4: Consultar Historial
+### HU010: Consultar Historial de Movimientos
 - Búsqueda por producto, tipo, fecha
 - Tabla completa de movimientos u
 
-### HU5: Buscar Productos
+### HU007: Examinar stock disponible
 - Búsqueda por código y nombre
 - Resultados en cards
 
-### HU6: Gestión de Usuarios
+### HU008: Gestión de Usuarios
 - CRUD completo
 - Roles: Admin, Gerente, Operario
 
