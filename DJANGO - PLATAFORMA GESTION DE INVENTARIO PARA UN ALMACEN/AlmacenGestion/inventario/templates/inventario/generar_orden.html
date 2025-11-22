@@ -1,0 +1,46 @@
+{% extends "inventario/base.html" %}
+
+{% block title %}Generar Orden de Compra{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Generar Orden de Compra</h1>
+</div>
+
+<div class="form-container">
+    <form method="post" class="form-content">
+        {% csrf_token %}
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header">Información de la Alerta</div>
+            <div class="card-body">
+                <p><strong>Producto:</strong> {{ alerta.producto.codigo }} - {{ alerta.producto.nombre }}</p>
+                <p><strong>Stock Actual:</strong> {{ alerta.producto.stock }} unidades</p>
+                <p><strong>Stock Mínimo:</strong> {{ alerta.producto.stock_minimo }} unidades</p>
+                <p><strong>Proveedor:</strong> {{ alerta.producto.proveedor }}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Cantidad a Ordenar</label>
+            <input type="number" name="cantidad" class="form-control" min="1" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Proveedor</label>
+            <input type="text" name="proveedor" class="form-control" value="{{ alerta.producto.proveedor }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Notas (Opcional)</label>
+            <textarea name="notas" class="form-control" rows="3" placeholder="Observaciones adicionales"></textarea>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-file-invoice"></i> Generar Orden
+            </button>
+            <a href="{% url 'inventario:alertas' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "inventario/base.html" %}
+{% block title %}Eliminar Proveedor{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #E68166 0%, #E05555 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 32px; font-weight: 700;">🗑️ Eliminar Proveedor</h1>
+</div>
+
+<div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px; margin: 0 auto; text-align: center;">
+    <p style="font-size: 18px; color: #333; margin-bottom: 20px;">
+        ¿Estás seguro de que deseas eliminar el proveedor?
+    </p>
+    <p style="background: #F5F5F5; padding: 16px; border-radius: 6px; font-weight: 600; color: #E05555; margin-bottom: 30px;">
+        {{ object.nombre }}
+    </p>
+    <p style="color: #666; margin-bottom: 30px; font-size: 14px;">
+        Esta acción NO se puede deshacer.
+    </p>
+    
+    <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" style="background: #E05555; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; margin-right: 12px;">
+            ✓ Sí, Eliminar
+        </button>
+        <a href="{% url 'inventario:proveedor_list' %}" style="background: #999; color: white; padding: 12px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; display: inline-block;">
+            ✗ Cancelar
+        </a>
+    </form>
+</div>
+{% endblock %}

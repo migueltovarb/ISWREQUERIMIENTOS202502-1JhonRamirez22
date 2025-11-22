@@ -1,0 +1,51 @@
+{% extends "inventario/base.html" %}
+{% block title %}Alertas de Stock{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #E68166 0%, #E05555 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 32px; font-weight: 700;">⚠️ Alertas de Stock Bajo</h1>
+    <p style="opacity: 0.9;">Total de alertas activas: <strong>{{ total_alertas }}</strong></p>
+</div>
+
+{% if alertas %}
+<div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: #E05555; color: white;">
+                <th style="padding: 16px; text-align: left;">Producto</th>
+                <th style="padding: 16px;">Stock Actual</th>
+                <th style="padding: 16px;">Stock Mínimo</th>
+                <th style="padding: 16px;">Diferencia</th>
+                <th style="padding: 16px;">Estado</th>
+                <th style="padding: 16px; text-align: center;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for alerta in alertas %}
+        <tr style="border-bottom: 1px solid #F0F0F0;">
+            <td style="padding: 16px;"><strong>{{ alerta.producto.codigo }}</strong><br><small style="color: #666;">{{ alerta.producto.nombre }}</small></td>
+            <td style="padding: 16px; text-align: center; font-weight: 600;">{{ alerta.producto.stock }}</td>
+            <td style="padding: 16px; text-align: center;">{{ alerta.producto.stock_minimo }}</td>
+            <td style="padding: 16px; text-align: center; color: #E05555;">-{% widthratio alerta.producto.stock_minimo 1 1 %}{{ alerta.producto.stock }}</td>
+            <td style="padding: 16px;">
+                <span style="background: #FFCDD2; color: #E05555; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">● Activa</span>
+            </td>
+            <td style="padding: 16px; text-align: center;">
+                <a href="{% url 'inventario:actualizar_stock' alerta.producto.pk %}" style="color: #4CAF50; text-decoration: none;">📦 Abastecer</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div style="background: white; padding: 60px; border-radius: 12px; text-align: center;">
+    <p style="font-size: 48px;">✅</p>
+    <h3>¡Sin Alertas!</h3>
+    <p style="color: #666;">Todos los productos tienen stock disponible</p>
+</div>
+{% endif %}
+
+<div style="margin-top: 20px; text-align: center;">
+    <a href="{% url 'inventario:listado' %}?rol={{ rol }}" style="background: #1976D2; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">Volver al Listado</a>
+</div>
+{% endblock %}

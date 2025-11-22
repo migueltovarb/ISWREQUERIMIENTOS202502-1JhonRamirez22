@@ -1,0 +1,36 @@
+{% extends "inventario/base.html" %}
+
+{% block title %}Generar Código de Barras{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Generar Código de Barras</h1>
+</div>
+
+<div class="form-container">
+    <form method="post" class="form-content">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Código del Producto</label>
+            <input type="text" name="codigo" maxlength="6" class="form-control" placeholder="Ej: PRD001" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Nombre del Producto</label>
+            <input type="text" name="nombre" class="form-control" placeholder="Nombre del producto" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Cantidad (Opcional)</label>
+            <input type="number" name="cantidad" class="form-control" placeholder="Cantidad a producir" min="1">
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-barcode"></i> Generar Código
+            </button>
+            <a href="{% url 'inventario:listado' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

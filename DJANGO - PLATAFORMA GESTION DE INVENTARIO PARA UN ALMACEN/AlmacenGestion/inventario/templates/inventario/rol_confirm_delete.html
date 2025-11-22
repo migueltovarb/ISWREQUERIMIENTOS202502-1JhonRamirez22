@@ -1,0 +1,21 @@
+{% extends "inventario/base.html" %}
+{% block title %}Eliminar Usuario{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #E05555 0%, #D44040 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; text-align: center;">
+    <h1 style="font-size: 32px; font-weight: 700;"><i class="fas fa-exclamation-triangle"></i> Eliminar Usuario</h1>
+</div>
+<div style="background: white; padding: 40px; border-radius: 12px; max-width: 500px; margin: 0 auto; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <p style="font-size: 48px; margin-bottom: 16px;">⚠️</p>
+    <h3 style="margin-bottom: 16px;">¿Está seguro?</h3>
+    <p style="color: #666; margin-bottom: 20px;">Va a eliminar al usuario:</p>
+    <div style="background: #F0F0F0; padding: 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 600; font-size: 16px;">
+        {{ object.nombre }}
+    </div>
+    <p style="color: #E05555; margin-bottom: 24px; font-weight: 600;">Esta acción no se puede deshacer.</p>
+    <form method="post" style="display: inline-block;">
+        {% csrf_token %}
+        <button type="submit" style="background: #E05555; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; margin-right: 12px;">Eliminar</button>
+        <a href="{% url 'inventario:rol_list' %}" style="background: #F0F0F0; color: #333; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-block;">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "inventario/base.html" %}
+{% block title %}Actualizar Stock{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 32px; font-weight: 700;">Actualizar Stock: {{ producto.nombre }}</h1>
+</div>
+<div style="background: white; padding: 30px; border-radius: 12px; max-width: 600px; margin: 0 auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="background: #F0F0F0; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+        <p><strong>Código:</strong> {{ producto.codigo }}</p>
+        <p><strong>Stock Actual:</strong> {{ producto.stock }} unidades</p>
+        <p><strong>Stock Mínimo:</strong> {{ producto.stock_minimo }} unidades</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <button type="submit" style="flex: 1; background: #4CAF50; color: white; padding: 12px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Actualizar</button>
+            <a href="{% url 'inventario:listado' %}" style="flex: 1; background: #F0F0F0; color: #333; padding: 12px; border-radius: 6px; text-decoration: none; text-align: center; font-weight: 600;">Cancelar</a>
+        </div>
+    </form>
+</div>
+<style>
+input, select { width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-family: 'Segoe UI'; font-size: 14px; }
+</style>
+{% endblock %}

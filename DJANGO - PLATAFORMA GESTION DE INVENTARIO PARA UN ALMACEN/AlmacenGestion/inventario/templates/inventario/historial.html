@@ -1,0 +1,78 @@
+{% extends "inventario/base.html" %}
+{% block title %}Historial de Movimientos{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 32px; font-weight: 700;">📋 Historial de Movimientos</h1>
+    <p style="opacity: 0.9;">Reporte completo de entrada/salida de productos</p>
+</div>
+
+<div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <form method="get" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+        <div>
+            <label style="font-weight: 600; display: block; margin-bottom: 6px;">Tipo de Movimiento</label>
+            <select name="tipo" style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px;">
+                <option value="">Todos</option>
+                <option value="entrada" {% if request.GET.tipo == 'entrada' %}selected{% endif %}>Entrada</option>
+                <option value="salida" {% if request.GET.tipo == 'salida' %}selected{% endif %}>Salida</option>
+                <option value="ajuste" {% if request.GET.tipo == 'ajuste' %}selected{% endif %}>Ajuste</option>
+                <option value="devolución" {% if request.GET.tipo == 'devolución' %}selected{% endif %}>Devolución</option>
+            </select>
+        </div>
+        <div>
+            <label style="font-weight: 600; display: block; margin-bottom: 6px;">Código Producto</label>
+            <input type="text" name="producto" value="{{ request.GET.producto }}" style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px;" placeholder="Buscar...">
+        </div>
+        <div style="align-self: flex-end;">
+            <button type="submit" style="background: #1976D2; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%;">🔍 Buscar</button>
+        </div>
+    </form>
+</div>
+
+{% if movimientos %}
+<div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: #212121; color: white;">
+                <th style="padding: 16px; text-align: left;">Fecha</th>
+                <th style="padding: 16px;">Producto</th>
+                <th style="padding: 16px;">Tipo</th>
+                <th style="padding: 16px;">Cantidad</th>
+                <th style="padding: 16px;">Stock Anterior</th>
+                <th style="padding: 16px;">Stock Posterior</th>
+                <th style="padding: 16px;">Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mov in movimientos %}
+        <tr style="border-bottom: 1px solid #F0F0F0;">
+            <td style="padding: 16px;"><small>{{ mov.fecha|date:'d/m/Y H:i' }}</small></td>
+            <td style="padding: 16px;"><strong>{{ mov.producto.codigo }}</strong></td>
+            <td style="padding: 16px;">
+                {% if mov.tipo == 'entrada' %}
+                <span style="background: #C8E6C9; color: #4CAF50; padding: 4px 12px; border-radius: 4px; font-size: 12px;">↑ Entrada</span>
+                {% elif mov.tipo == 'salida' %}
+                <span style="background: #FFCDD2; color: #E05555; padding: 4px 12px; border-radius: 4px; font-size: 12px;">↓ Salida</span>
+                {% else %}
+                <span style="background: #E1BEE7; color: #7B1FA2; padding: 4px 12px; border-radius: 4px; font-size: 12px;">⚙ {{ mov.get_tipo_display }}</span>
+                {% endif %}
+            </td>
+            <td style="padding: 16px; text-align: center; font-weight: 600;">{{ mov.cantidad }}</td>
+            <td style="padding: 16px; text-align: center;">{{ mov.stock_anterior }}</td>
+            <td style="padding: 16px; text-align: center; font-weight: 600;">{{ mov.stock_posterior }}</td>
+            <td style="padding: 16px;"><small>{{ mov.usuario }}</small></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div style="background: white; padding: 60px; border-radius: 12px; text-align: center;">
+    <p style="font-size: 48px;">📭</p>
+    <h3>Sin movimientos registrados</h3>
+</div>
+{% endif %}
+
+<div style="margin-top: 20px; text-align: center;">
+    <a href="{% url 'inventario:listado' %}?rol={{ rol }}" style="background: #1976D2; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">Volver</a>
+</div>
+{% endblock %}

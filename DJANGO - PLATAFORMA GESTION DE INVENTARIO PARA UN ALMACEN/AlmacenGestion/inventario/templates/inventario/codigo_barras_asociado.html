@@ -1,0 +1,43 @@
+{% extends "inventario/base.html" %}
+{% load static %}
+
+{% block title %}Código de Barras Generado{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Código de Barras Generado</h1>
+</div>
+
+<div class="form-container" style="max-width: 500px;">
+    <div class="card">
+        <div class="card-header">Información del Código</div>
+        <div class="card-body" style="text-align: center;">
+            <p><strong>Código:</strong> {{ codigo }}</p>
+            <p><strong>Nombre:</strong> {{ nombre }}</p>
+            {% if cantidad %}
+            <p><strong>Cantidad:</strong> {{ cantidad }}</p>
+            {% endif %}
+            
+            <div style="background: white; padding: 20px; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px;">
+                <p style="font-size: 24px; font-weight: bold; letter-spacing: 2px;">{{ codigo_barras_data }}</p>
+                <p style="font-size: 12px; color: #999;">EAN-13</p>
+            </div>
+            
+            <div class="form-actions">
+                <button onclick="window.print()" class="btn btn-primary">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+                <button onclick="navigator.clipboard.writeText('{{ codigo_barras_data }}')" class="btn btn-secondary">
+                    <i class="fas fa-copy"></i> Copiar
+                </button>
+                <a href="{% url 'inventario:codigo_barras' %}" class="btn btn-secondary">Generar Otro</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<script>
+    JsBarcode("#barcode", "{{ codigo_barras_data }}", {format: "EAN13"});
+</script>
+{% endblock %}

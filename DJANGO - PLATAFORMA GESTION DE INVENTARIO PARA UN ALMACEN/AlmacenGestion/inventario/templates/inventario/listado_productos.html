@@ -1,0 +1,90 @@
+{% extends "inventario/base.html" %}
+{% block title %}Productos{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h1 style="font-size: 32px; font-weight: 700;">Listado de Productos</h1>
+            <p style="opacity: 0.9;">
+                {% if rol == "administrador" %}
+                Rol: <strong>Administrador</strong> (Acceso Completo)
+                {% elif rol == "gerente" %}
+                Rol: <strong>Gerente</strong> (Gestión de Productos)
+                {% else %}
+                Rol: <strong>Operario</strong> (Solo Lectura)
+                {% endif %}
+            </p>
+        </div>
+        {% if rol == "administrador" or rol == "gerente" %}
+        <a href="{% url 'inventario:crear' %}" style="background: white; color: #1976D2; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;"><i class="fas fa-plus"></i> Nuevo</a>
+        {% endif %}
+    </div>
+</div>
+
+<div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <form method="get" style="display: flex; gap: 12px;">
+        <input type="text" name="search" placeholder="Buscar..." value="{{ request.GET.search }}" style="flex: 1; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px;">
+        <input type="hidden" name="rol" value="{{ rol }}">
+        <button type="submit" style="background: #1976D2; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Buscar</button>
+    </form>
+</div>
+
+{% if productos %}
+<div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: #212121; color: white;">
+                <th style="padding: 16px; text-align: left;">Código</th>
+                <th style="padding: 16px; text-align: left;">Nombre</th>
+                <th style="padding: 16px;">Stock</th>
+                <th style="padding: 16px;">Estado</th>
+                {% if rol == "administrador" or rol == "gerente" or rol == "operario" %}
+                <th style="padding: 16px; text-align: center;">Acciones</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for producto in productos %}
+        <tr style="border-bottom: 1px solid #F0F0F0;">
+            <td style="padding: 16px;"><strong style="color: #1976D2;">{{ producto.codigo }}</strong></td>
+            <td style="padding: 16px;">{{ producto.nombre }}</td>
+            <td style="padding: 16px; font-weight: 600;">{{ producto.stock }}</td>
+            <td style="padding: 16px;">
+                {% if producto.stock == 0 %}
+                <span style="background: #FFCDD2; color: #E05555; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">● CRÍTICA</span>
+                {% elif producto.stock < producto.stock_minimo %}
+                <span style="background: #FFE0B2; color: #E68166; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">● ALTA</span>
+                {% else %}
+                <span style="background: #C8E6C9; color: #4CAF50; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">● NORMAL</span>
+                {% endif %}
+            </td>
+            <td style="padding: 16px; text-align: center;">
+                {% if rol == "administrador" %}
+                <a href="{% url 'inventario:editar' producto.pk %}" style="color: #FF9800; margin: 0 8px; text-decoration: none;">✏️</a>
+                <a href="{% url 'inventario:actualizar_stock' producto.pk %}" style="color: #4CAF50; margin: 0 8px; text-decoration: none;">📦</a>
+                <a href="{% url 'inventario:eliminar' producto.pk %}" style="color: #E05555; margin: 0 8px; text-decoration: none;">🗑️</a>
+                {% elif rol == "gerente" %}
+                <a href="{% url 'inventario:editar' producto.pk %}" style="color: #FF9800; margin: 0 8px; text-decoration: none;">✏️</a>
+                <a href="{% url 'inventario:actualizar_stock' producto.pk %}" style="color: #4CAF50; margin: 0 8px; text-decoration: none;">📦</a>
+                {% else %}
+                <a href="{% url 'inventario:detalle' producto.pk %}" style="color: #1976D2; margin: 0 8px; text-decoration: none;">👁️</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div style="background: white; padding: 60px; border-radius: 12px; text-align: center;">
+    <p style="font-size: 48px;">📭</p><h3>No hay productos</h3>
+    {% if rol == "administrador" or rol == "gerente" %}
+    <a href="{% url 'inventario:crear' %}" style="background: #1976D2; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 12px;">Crear Producto</a>
+    {% endif %}
+</div>
+{% endif %}
+
+<div style="margin-top: 20px; text-align: center;">
+    <a href="/" style="background: #F0F0F0; color: #333; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">Cambiar de Rol</a>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "inventario/base.html" %}
+{% block title %}Gestión de Proveedores{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h1 style="font-size: 32px; font-weight: 700;">🏭 Gestión de Proveedores</h1>
+            <p style="opacity: 0.9;">Administra tus proveedores y contactos</p>
+        </div>
+        <a href="{% url 'inventario:proveedor_crear' %}" style="background: white; color: #4CAF50; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">+ Nuevo Proveedor</a>
+    </div>
+</div>
+
+{% if proveedores %}
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
+{% for proveedor in proveedores %}
+<div style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #4CAF50;">
+    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+        <div>
+            <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 4px 0;">{{ proveedor.nombre }}</h3>
+            <p style="color: #666; margin: 0;">{{ proveedor.cargo|default:'Proveedor' }}</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <a href="{% url 'inventario:proveedor_editar' proveedor.pk %}" style="color: #FF9800; text-decoration: none; font-size: 18px;">✏️</a>
+            <a href="{% url 'inventario:proveedor_eliminar' proveedor.pk %}" style="color: #E05555; text-decoration: none; font-size: 18px;">🗑️</a>
+        </div>
+    </div>
+    
+    <div style="background: #F5F5F5; padding: 12px; border-radius: 8px; font-size: 14px; line-height: 1.8; color: #555;">
+        <p style="margin: 0;"><strong>📧 Email:</strong> {{ proveedor.email }}</p>
+        <p style="margin: 0;"><strong>📞 Teléfono:</strong> {{ proveedor.telefono }}</p>
+        <p style="margin: 0;"><strong>👤 Contacto:</strong> {{ proveedor.contacto }}</p>
+        <p style="margin: 0;"><strong>📍 Ubicación:</strong> {{ proveedor.ciudad }}, {{ proveedor.pais }}</p>
+        <p style="margin: 0;">
+            {% if proveedor.activo %}
+            <span style="background: #C8E6C9; color: #4CAF50; padding: 2px 8px; border-radius: 4px; font-size: 12px;">✓ Activo</span>
+            {% else %}
+            <span style="background: #F5F5F5; color: #999; padding: 2px 8px; border-radius: 4px; font-size: 12px;">✗ Inactivo</span>
+            {% endif %}
+        </p>
+    </div>
+    
+    <p style="margin: 12px 0 0 0; color: #999; font-size: 12px;">Registrado: {{ proveedor.fecha_registro|date:'d/m/Y' }}</p>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<div style="background: white; padding: 60px; border-radius: 12px; text-align: center;">
+    <p style="font-size: 48px;">📭</p>
+    <h3>Sin proveedores registrados</h3>
+    <a href="{% url 'inventario:proveedor_crear' %}" style="background: #4CAF50; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 12px;">Crear Primer Proveedor</a>
+</div>
+{% endif %}
+
+<div style="margin-top: 20px; text-align: center;">
+    <a href="{% url 'inventario:listado' %}?rol={{ rol }}" style="background: #1976D2; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">Volver al Listado</a>
+</div>
+{% endblock %}

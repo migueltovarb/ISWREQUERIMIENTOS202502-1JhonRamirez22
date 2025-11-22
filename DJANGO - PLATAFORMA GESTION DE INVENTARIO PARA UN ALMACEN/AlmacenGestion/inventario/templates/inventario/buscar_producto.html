@@ -1,0 +1,48 @@
+{% extends "inventario/base.html" %}
+{% block title %}Buscar{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 32px; font-weight: 700;"><i class="fas fa-search"></i> Búsqueda</h1>
+</div>
+<div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <form method="get" style="display: flex; gap: 12px;">
+        <input type="text" name="codigo" placeholder="Código..." style="flex: 1; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px;">
+        <input type="text" name="nombre" placeholder="Nombre..." style="flex: 1; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px;">
+        <button type="submit" style="background: #1976D2; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Buscar</button>
+    </form>
+</div>
+{% if productos %}
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+    {% for producto in productos %}
+    <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <div style="background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; padding: 16px;">
+            <strong>{{ producto.codigo }}</strong>
+        </div>
+        <div style="padding: 16px;">
+            <h3 style="margin-bottom: 12px;">{{ producto.nombre }}</h3>
+            <p><strong>Stock:</strong> {{ producto.stock }}</p>
+            <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+            <div style="margin-top: 12px;">
+                {% if producto.stock == 0 %}
+                <span style="background: #FFCDD2; color: #E05555; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">● CRÍTICA</span>
+                {% elif producto.stock < producto.stock_minimo %}
+                <span style="background: #FFE0B2; color: #E68166; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">● ALTA</span>
+                {% else %}
+                <span style="background: #C8E6C9; color: #4CAF50; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">● NORMAL</span>
+                {% endif %}
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 16px;">
+                <a href="{% url 'inventario:editar' producto.pk %}" style="flex: 1; background: #FF9800; color: white; padding: 8px; text-align: center; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 600;">Editar</a>
+                <a href="{% url 'inventario:actualizar_stock' producto.pk %}" style="flex: 1; background: #4CAF50; color: white; padding: 8px; text-align: center; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 600;">Stock</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div style="background: white; padding: 60px; border-radius: 12px; text-align: center;">
+    <p style="font-size: 48px;">🔍</p><h3>Ingresa un criterio</h3>
+    <p style="color: #999;">Busca por código o nombre</p>
+</div>
+{% endif %}
+{% endblock %}

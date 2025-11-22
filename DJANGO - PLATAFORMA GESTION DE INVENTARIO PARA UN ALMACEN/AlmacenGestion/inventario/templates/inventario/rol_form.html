@@ -1,0 +1,40 @@
+{% extends "inventario/base.html" %}
+{% block title %}Rol{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 32px; font-weight: 700;">{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Usuario</h1>
+</div>
+<div style="background: white; padding: 30px; border-radius: 12px; max-width: 600px; margin: 0 auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Nombre</label>
+            {{ form.nombre }}
+            {% if form.nombre.errors %}<p style="color: #E05555; font-size: 12px;">{{ form.nombre.errors.0 }}</p>{% endif %}
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Correo</label>
+            {{ form.correo }}
+            {% if form.correo.errors %}<p style="color: #E05555; font-size: 12px;">{{ form.correo.errors.0 }}</p>{% endif %}
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Cargo</label>
+            {{ form.cargo }}
+            {% if form.cargo.errors %}<p style="color: #E05555; font-size: 12px;">{{ form.cargo.errors.0 }}</p>{% endif %}
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Rol</label>
+            {{ form.rol }}
+            {% if form.rol.errors %}<p style="color: #E05555; font-size: 12px;">{{ form.rol.errors.0 }}</p>{% endif %}
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <button type="submit" style="flex: 1; background: #4CAF50; color: white; padding: 12px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Guardar</button>
+            <a href="{% url 'inventario:rol_list' %}" style="flex: 1; background: #F0F0F0; color: #333; padding: 12px; border-radius: 6px; text-decoration: none; text-align: center; font-weight: 600;">Cancelar</a>
+        </div>
+    </form>
+</div>
+<style>
+input, select, textarea { width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-family: 'Segoe UI'; font-size: 14px; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: #1976D2; box-shadow: 0 0 0 3px rgba(25,118,210,0.1); }
+</style>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "inventario/base.html" %}
+{% block title %}{% if object %}Editar{% else %}Crear{% endif %} Proveedor{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 32px; font-weight: 700;">{% if object %}✏️ Editar Proveedor{% else %}🏭 Crear Nuevo Proveedor{% endif %}</h1>
+</div>
+
+<div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <form method="post" style="max-width: 600px;">
+        {% csrf_token %}
+        
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Nombre del Proveedor</label>
+            <input type="text" name="nombre" value="{{ form.nombre.value|default:'' }}" required style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 14px;" placeholder="Nombre completo">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Contacto</label>
+            <input type="text" name="contacto" value="{{ form.contacto.value|default:'' }}" required style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 14px;" placeholder="Nombre de contacto">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Email</label>
+            <input type="email" name="email" value="{{ form.email.value|default:'' }}" required style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 14px;" placeholder="correo@ejemplo.com">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Teléfono</label>
+            <input type="text" name="telefono" value="{{ form.telefono.value|default:'' }}" required style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 14px;" placeholder="+57 (123) 456-7890">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Dirección</label>
+            <textarea name="direccion" required style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 14px; font-family: 'Segoe UI';" rows="3" placeholder="Dirección completa">{{ form.direccion.value|default:'' }}</textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Ciudad</label>
+                <input type="text" name="ciudad" value="{{ form.ciudad.value|default:'' }}" required style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 14px;" placeholder="Ciudad">
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">País</label>
+                <input type="text" name="pais" value="{{ form.pais.value|default:'' }}" required style="width: 100%; padding: 10px; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 14px;" placeholder="País">
+            </div>
+        </div>
+
+        {% if object %}
+        <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+            <input type="checkbox" name="activo" id="activo" {% if form.activo.value %}checked{% endif %} style="width: 20px; height: 20px; cursor: pointer;">
+            <label for="activo" style="font-weight: 600; color: #333; cursor: pointer;">Proveedor Activo</label>
+        </div>
+        {% endif %}
+
+        <div style="display: flex; gap: 12px; margin-top: 30px;">
+            <button type="submit" style="background: #4CAF50; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                {% if object %}💾 Guardar Cambios{% else %}✅ Crear Proveedor{% endif %}
+            </button>
+            <a href="{% url 'inventario:proveedor_list' %}" style="background: #999; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 14px; display: inline-block;">❌ Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

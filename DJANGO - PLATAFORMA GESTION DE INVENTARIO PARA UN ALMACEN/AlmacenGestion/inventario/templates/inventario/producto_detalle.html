@@ -1,0 +1,26 @@
+{% extends "inventario/base.html" %}
+{% block title %}Detalles{% endblock %}
+{% block content %}
+<div style="background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 32px; font-weight: 700;">{{ producto.nombre }}</h1>
+    <p style="opacity: 0.9;">Código: {{ producto.codigo }}</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="margin-bottom: 16px; color: #1976D2;">General</h3>
+        <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+        <p><strong>Marca:</strong> {{ producto.marca }}</p>
+    </div>
+    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="margin-bottom: 16px; color: #1976D2;">Stock</h3>
+        <p><strong>Stock:</strong> <span style="font-size: 24px; font-weight: 700; color: #1976D2;">{{ producto.stock }}</span></p>
+        <p><strong>Mínimo:</strong> {{ producto.stock_minimo }}</p>
+        <div style="margin-top: 16px;">
+            <a href="{% url 'inventario:actualizar_stock' producto.pk %}" style="background: #FF9800; color: white; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 600;">Actualizar</a>
+        </div>
+    </div>
+</div>
+<div style="margin-top: 20px;">
+    <a href="{% url 'inventario:listado' %}" style="background: #F0F0F0; color: #333; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">← Volver</a>
+</div>
+{% endblock %}
