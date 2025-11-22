@@ -54,18 +54,8 @@ python manage.py createsuperuser
 python manage.py runserver
 
 ## Acceso
+- **Admin:** http://localhost:8000
 
-- **Aplicación:** http://localhost:8000/inventario/
-- **Admin:** http://localhost:8000/admin/
-
-## URLs principales
-
-- `/inventario/` - Inicio
-- `/inventario/productos/` - Listado de productos
-- `/inventario/alertas/` - Ver alertas
-- `/inventario/historial/` - Historial de movimientos
-- `/inventario/buscar/` - Búsqueda de productos
-- `/inventario/roles/` - Gestión de usuarios
 
 ## Modelos
 
