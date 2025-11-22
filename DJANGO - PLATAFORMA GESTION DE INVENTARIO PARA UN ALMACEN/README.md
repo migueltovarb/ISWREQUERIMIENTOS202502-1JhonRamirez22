@@ -2,25 +2,25 @@
 
 Aplicación completa para gestionar inventario de almacén con alertas automáticas, códigos de barras y historial de movimientos.
 
-## Características
+## Caracteristicas que implemente en la aplicacion
 
-✅ Alertas automáticas cuando stock está bajo
-✅ Generación automática de código de barras EAN13
-✅ CRUD completo de productos
-✅ Historial de movimientos (Entrada/Salida/Modificación)
-✅ Búsqueda avanzada de productos
-✅ Gestión de usuarios y roles
-✅ Style Tile integrado
-✅ Responsive design
-✅ Admin panel personalizado
-✅ Validaciones completas
+Alertas automáticas cuando stock está bajo
+Generación automática de código de barras EAN13
+CRUD completo de productos
+Historial de movimientos (Entrada/Salida/Modificación)
+Búsqueda avanzada de productos
+Gestión de usuarios y roles
+Style Tile integrado
+Responsive design
+Admin panel personalizado
+Validaciones completas
 
 ## Instalación
 
 ### 1. Instalar dependencias
-```bash
+
 pip install -r requirements.txt
-```
+
 
 ### 2. Configurar settings.py
 Agregar 'inventario' a INSTALLED_APPS:
@@ -41,19 +41,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ```
 
 ### 3. Realizar migraciones
-```bash
+
 python manage.py migrate
-```
+
 
 ### 4. Crear superusuario
-```bash
+
 python manage.py createsuperuser
-```
 
 ### 5. Ejecutar servidor
-```bash
+
 python manage.py runserver
-```
 
 ## Acceso
 
@@ -99,7 +97,7 @@ python manage.py runserver
 - Correo
 - Rol del sistema
 
-## Características implementadas
+## HISTORIAS DE USUARIOS USADAS EN LA APLICACION DJANGO
 
 ### HU1: Recibir Alertas Automáticas
 - Alertas cuando stock < stock_mínimo
@@ -117,7 +115,7 @@ python manage.py runserver
 
 ### HU4: Consultar Historial
 - Búsqueda por producto, tipo, fecha
-- Tabla completa de movimientos
+- Tabla completa de movimientos u
 
 ### HU5: Buscar Productos
 - Búsqueda por código y nombre
@@ -127,7 +125,7 @@ python manage.py runserver
 - CRUD completo
 - Roles: Admin, Gerente, Operario
 
-## Tecnologías
+## Dependencias Usadas
 
 - Django 4.2
 - PostgreSQL/SQLite
@@ -136,10 +134,4 @@ python manage.py runserver
 - xlsxwriter
 - HTML5/CSS3/JavaScript
 
-## Autor
 
-Sistema desarrollado para Ingeniería de Software.
-
-## Licencia
-
-Proyecto de código abierto para fines educativos.
